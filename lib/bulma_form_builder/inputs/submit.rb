@@ -2,6 +2,7 @@ module BulmaFormBuilder
   module Inputs
     module Submit
       extend ActiveSupport::Concern
+      include ActionView::Helpers::TagHelper
 
       include Base
 
@@ -11,8 +12,7 @@ module BulmaFormBuilder
             options = value
             value = nil
           end
-          options[:class] = options[:class].present? ? Array(options[:class]) : []
-          options[:class] += [:button, :'is-primary']
+          options[:class] = class_names(options[:class], 'button')
           field_control { submit_without_bulma(value, options) }
         end
 
